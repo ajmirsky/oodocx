@@ -17,9 +17,10 @@ import time
 import datetime
 import os
 import collections
+import io
 from lxml import etree
-from oodocx import imageinfo
-from oodocx import write_files
+from . import imageinfo
+from . import write_files
 
 
 log = logging.getLogger(__name__)
@@ -98,9 +99,9 @@ class Docx():
 			for file in filenames:
 				if file[-4:] == '.xml' or file[-5:] == '.rels':
 					absdir = os.path.abspath(os.path.join(root, file))
-					docstr = open(absdir, 'r', encoding='utf8')
+					docstr = io.open(absdir, 'r', encoding='utf8')
 					relpath = os.path.relpath(absdir, WRITE_DIR)
-					xmlfile = (etree.fromstring(docstr.read().encode()))
+					xmlfile = (etree.fromstring(docstr.read().encode('utf_8')))
 					if file == '[Content_Types].xml':
 						self.contenttypes = xmlfile
 						self.xmlfiles[self.contenttypes] = relpath

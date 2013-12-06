@@ -40,7 +40,7 @@ First of all, be sure to check out the /examples folder for basic examples of th
   <h3>Open a document, insert a paragraph after the paragraph containing the word "apple", and save it somewhere else</h3>
   
     d = oodocx.Docx(r'C:\users\applecart\apples.docx')
-    body = d.get_body
+    body = d.get_body()
     apple_para = d.search('apple', result_type='paragraph')
     pos = body.index(apple_para) + 1 #lxml
     body.insert(pos, oodocx.paragraph('Bananas!')) #lxml

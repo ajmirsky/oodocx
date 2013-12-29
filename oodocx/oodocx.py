@@ -334,7 +334,7 @@ class Docx():
             'type': type, 'default': default})
         else:
             style = makeelement('style', attributes={'styleId': styleId, 
-            'type': type})
+                                                     'type': type})
         style.append(makeelement('pPr'))
         style.append(makeelement('rPr'))
         self.styles.append(style)
@@ -844,41 +844,9 @@ def paragraph(paratext, breakbefore=False, rprops=None, pprops=None):
         if t[1].find('i') > -1:
             i = makeelement('i')
             rPr.append(i)
-        run.append(rPr)
-        # Insert lastRenderedPageBreak for assistive technologies like
-        # document narrators to know when a page break occurred.
-        if breakbefore:
-            lastRenderedPageBreak = makeelement('lastRenderedPageBreak')
-            run.append(lastRenderedPageBreak)
-        run.append(t[0])
-        paragraph.append(run)
-    # Return the combined paragraph
-    return paragraph
-    # Add the text to the run, and the run to the paragraph
-    paragraph.append(pPr)
-    for t in text:
-        run = makeelement('r')
-        rPr = makeelement('rPr')
-        # Apply styles
-        if t[1].find('b') > -1:
-            b = makeelement('b')
-            rPr.append(b)
-        if t[1].find('u') > -1:
-            u = makeelement('u', attributes={'val': 'single'})
-            rPr.append(u)
-        if t[1].find('i') > -1:
-            i = makeelement('i')
-            rPr.append(i)
-        if run_properties:
-            if isinstance(run_properties[0], str):
-                a = makeelement(run_properties[0], 
-                attributes={run_properties[1]: run_properties[2]})
-                rPr.append(a)
-            else:
-                for element in run_properties:
-                    a = makeelement(element[0],
-                    attributes={element[1]: element[2]})
-                    rPr.append(a)
+        if t[1].find('l') > -1:
+            l = makeelement('br')
+            run.append(l)
         run.append(rPr)
         # Insert lastRenderedPageBreak for assistive technologies like
         # document narrators to know when a page break occurred.

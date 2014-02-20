@@ -735,6 +735,11 @@ def paragraph(paratext, style='', breakbefore=False, rprops=None, pprops=None):
 			i = makeelement('i')
 			rPr.append(i)
 		run.append(rPr)
+		
+		if t[1].find('l') > -1:
+			br = makeelement('br')
+			run.append(br)
+			
 		# Insert lastRenderedPageBreak for assistive technologies like
 		# document narrators to know when a page break occurred.
 		if breakbefore:
